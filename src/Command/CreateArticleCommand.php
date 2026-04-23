@@ -11,6 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+// php bin/console app:create-article
 #[AsCommand(
     name: 'app:create-article',
     description: 'Créer un article interactivement',
