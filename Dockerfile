@@ -39,6 +39,9 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV PHP_INI_SCAN_DIR=":$PHP_INI_DIR/app.conf.d"
 
 ###> recipes ###
+###> doctrine/doctrine-bundle ###
+RUN install-php-extensions pdo_pgsql
+###< doctrine/doctrine-bundle ###
 ###< recipes ###
 
 COPY --link frankenphp/conf.d/10-app.ini $PHP_INI_DIR/app.conf.d/
@@ -73,6 +76,8 @@ RUN <<-EOF
 		jq \
 		sudo
 	install-php-extensions xdebug
+        install-php-extensions pdo_pgsql
+
 	rm -rf /var/lib/apt/lists/*
 	useradd -m -s /bin/bash nonroot
 	echo "nonroot ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/nonroot
