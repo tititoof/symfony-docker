@@ -285,3 +285,19 @@ curl -k -X DELETE https://localhost/api/articles/1 \
 | `404` | Not Found | Ressource introuvable |
 | `409` | Conflict | Doublon (slug, username, email...) |
 | `422` | Unprocessable Entity | Erreur de validation |
+
+
+## Outils
+
+https://www.usebruno.com/
+
+## Info
+
+https://chartman2-fr.ovh
+
+LinkedIn
+
+Christophe Hartmann
+https://fr.linkedin.com/in/christophe-hartmann-3a297a42
+
+
