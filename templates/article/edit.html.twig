@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier — {{ article.title }}{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-dark text-white">
+                <h4>✏️ Modifier : {{ article.title }}</h4>
+            </div>
+            <div class="card-body">
+                {{ include('article/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

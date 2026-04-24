@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>📰 Articles</h1>
+    {% if is_granted('ROLE_WRITER') %}
+        <a href="{{ path('app_article_new') }}" class="btn btn-dark">
+            ✏️ Nouvel article
+        </a>
+    {% endif %}
+</div>
+
+{% if articles is empty %}
+    <div class="alert alert-info">Aucun article disponible.</div>
+{% else %}
+    <div class="row">
+        {% for article in articles %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    {% if article.image %}
+                        <img src="{{ article.image }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                    {% endif %}
+                    <div class="card-body">
+                        <span class="badge {{ article.status == 'published' ? 'bg-success' : 'bg-secondary' }} mb-2">
+                            {{ article.status == 'published' ? 'Publié' : 'Brouillon' }}
+                        </span>
+                        <h5 class="card-title">{{ article.title }}</h5>
+                        <p class="card-text text-muted">
+                            {{ article.content|slice(0, 100) }}...
+                        </p>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                Par {{ article.author.username }}
+                                {% if article.category %}
+                                    | {{ article.category.name }}
+                                {% endif %}
+                            </small>
+                        </p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <a href="{{ path('app_article_show', {id: article.id}) }}"
+                           class="btn btn-sm btn-outline-dark">
+                            👁️ Voir
+                        </a>
+                        {% if is_granted('ROLE_WRITER') %}
+                            <a href="{{ path('app_article_edit', {id: article.id}) }}"
+                               class="btn btn-sm btn-outline-warning">
+                                ✏️ Modifier
+                            </a>
+                        {% endif %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <form method="post"
+                                  action="{{ path('app_article_delete', {id: article.id}) }}"
+                                  onsubmit="return confirm('Supprimer cet article ?')">
+                                <input type="hidden" name="_token"
+                                       value="{{ csrf_token('delete' ~ article.id) }}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    🗑️ Supprimer
+                                </button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock %}

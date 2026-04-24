@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <article class="card shadow">
+            {% if article.image %}
+                <img src="{{ article.image }}" class="card-img-top" style="max-height:400px; object-fit:cover">
+            {% endif %}
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <h1>{{ article.title }}</h1>
+                    <span class="badge {{ article.status == 'published' ? 'bg-success' : 'bg-secondary' }}">
+                        {{ article.status == 'published' ? 'Publié' : 'Brouillon' }}
+                    </span>
+                </div>
+
+                <p class="text-muted">
+                    Par <strong>{{ article.author.username }}</strong>
+                    {% if article.category %}| {{ article.category.name }}{% endif %}
+                    | {{ article.publishedAt|date('d/m/Y') }}
+                </p>
+
+                <hr>
+                <div>{{ article.content|nl2br }}</div>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                <a href="{{ path('app_article_index') }}" class="btn btn-outline-secondary">
+                    ← Retour
+                </a>
+                <div class="d-flex gap-2">
+                    {% if is_granted('ROLE_WRITER') %}
+                        <a href="{{ path('app_article_edit', {id: article.id}) }}"
+                           class="btn btn-outline-warning">
+                            ✏️ Modifier
+                        </a>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <form method="post"
+                              action="{{ path('app_article_delete', {id: article.id}) }}"
+                              onsubmit="return confirm('Supprimer cet article ?')">
+                            <input type="hidden" name="_token"
+                                   value="{{ csrf_token('delete' ~ article.id) }}">
+                            <button type="submit" class="btn btn-outline-danger">
+                                🗑️ Supprimer
+                            </button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </article>
+    </div>
+</div>
+{% endblock %}

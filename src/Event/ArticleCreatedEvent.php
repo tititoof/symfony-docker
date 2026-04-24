@@ -9,12 +9,7 @@ class ArticleCreatedEvent extends Event
 {
     public const NAME = 'article.created';
 
-    public function __construct(
-        private Article $article,
-    ) {}
+    public function __construct(private Article $article) {}
 
-    public function getArticle(): Article
-    {
-        return $this->article;
-    }
+    public function getArticle(): Article { return $this->article; }
 }
