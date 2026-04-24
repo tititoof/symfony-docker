@@ -1,29 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-         bootstrap="vendor/autoload.php"
-         colors="true">
-
+<phpunit>
     <php>
-        <!-- ✅ Forcer l'environnement test -->
-        <ini name="display_errors" value="1"/>
-        <env name="APP_ENV" value="test" force="true"/>
-        <env name="APP_DEBUG" value="true"/>
-        <env name="KERNEL_CLASS" value="App\Kernel"/>
-
-        <!-- ✅ BDD de test séparée -->
-        <env name="DATABASE_URL" value="postgresql://app:!ChangeMe!@127.0.0.1:5432/app_test?serverVersion=16&charset=utf8" force="true"/>
+        <env name="APP_ENV" value="test"/>
+        <env name="DATABASE_URL" value="postgresql://user:password@localhost:5432/db_test"/>
     </php>
-
-    <testsuites>
-        <testsuite name="Project Test Suite">
-            <directory>tests</directory>
-        </testsuite>
-    </testsuites>
-
-    <source>
-        <include>
-            <directory suffix=".php">src</directory>
-        </include>
-    </source>
 </phpunit>

@@ -300,4 +300,4 @@ LinkedIn
 Christophe Hartmann
 https://fr.linkedin.com/in/christophe-hartmann-3a297a42
 
-
+https://refactoring.guru/fr/design-patterns

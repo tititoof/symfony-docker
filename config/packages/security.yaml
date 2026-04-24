@@ -16,6 +16,7 @@ security:
             # Ensure dev tools and static assets are always allowed
             pattern: ^/(_profiler|_wdt|assets|build)/
             security: false
+
         login:
             pattern: ^/api/auth/login
             stateless: true
@@ -25,7 +26,7 @@ security:
                 password_path: password
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
-        
+
         main:
             lazy: true
             provider: app_user_provider
